@@ -1,21 +1,17 @@
 # Lending Club Loan Default Prediction
 
 ## 📌 Problem Statement
-Financial institutions must accurately assess the risk of loan default before
-approving loans. This project uses historical Lending Club data to predict
-whether a borrower is likely to default based on loan and borrower attributes.
+This project predicts loan default risk using historical Lending Club data.
+The focus is on building an end-to-end machine learning pipeline using
+Jupyter notebooks, from data exploration to model evaluation.
 
-The dataset reflects real-world lending behavior and is naturally imbalanced,
-with far fewer default cases than successful repayments.
+Due to class imbalance, Recall and ROC–AUC are emphasized over accuracy.
 
 ---
 
 ## 🎯 Objective
-Build a deep learning model to predict loan default risk while prioritizing:
-- Recall (Sensitivity) – to correctly identify defaulters
-- ROC-AUC – to measure class separation performance
-
-Accuracy is not used as the primary metric due to class imbalance.
+To identify borrowers likely to default on loans while minimizing false negatives
+(missed defaulters).
 
 ---
 
@@ -53,11 +49,11 @@ lending-club-loan-default-prediction/
 │ ├── 02_eda.ipynb
 │ ├── 03_feature_engineering.ipynb
 │ ├── 04_modeling.ipynb
+│ ├── 05_evaluation.ipynb
 │
 ├── models/
 │ └── loan_default_model.h5
 │
-├── reports/
 │
 ├── requirements.txt
 └── README.md
@@ -65,68 +61,41 @@ lending-club-loan-default-prediction/
 
 ---
 
-## 🔄 Project Workflow
-
-### 1️⃣ Data Overview
-- Loaded and inspected the dataset
-- Verified no missing values or duplicate records
-- Analyzed target distribution
-- Identified strong class imbalance (~84% paid vs ~16% default)
 
 ---
 
-### 2️⃣ Exploratory Data Analysis (EDA)
-- Compared defaulted vs non-defaulted loans
-- Analyzed relationships between default and:
-  - Loan purpose
-  - Interest rate
-  - FICO credit score
-  - Debt-to-income ratio (DTI)
-  - Revolving credit utilization
-- Identified risk patterns and feature correlations
+## 🔄 Workflow Summary
 
----
+### 01 – Data Overview
+- Dataset inspection
+- Target distribution analysis
+- Missing value and duplicate checks
 
-### 3️⃣ Feature Engineering
-- Separated features (`X`) and target (`y`)
-- One-hot encoded categorical feature (`purpose`)
-- Performed stratified train-test split
-- Scaled numerical features using `StandardScaler`
-- Saved processed datasets for modeling
+### 02 – Exploratory Data Analysis
+- Default vs non-default comparisons
+- Analysis of credit score, interest rate, DTI, and loan purpose
+- Correlation analysis
 
----
+### 03 – Feature Engineering
+- One-hot encoding
+- Feature scaling
+- Stratified train-test split
 
-### 4️⃣ Modeling
-- Built a deep learning binary classification model using Keras
-- Architecture:
-  - Dense layers with ReLU activation
-  - Dropout layers to prevent overfitting
-  - Sigmoid output layer for probability prediction
-- Addressed class imbalance using **class weights**
-- Applied early stopping based on validation loss
-- Saved the trained model for evaluation
+### 04 – Modeling
+- Deep learning model using Keras
+- Class-weighted training
+- Early stopping
 
----
-
-## 📊 Key Insights So Far
-- Lower FICO scores significantly increase default risk
-- Higher interest rates correlate with higher defaults
-- High debt-to-income ratios indicate financial stress
-- Certain loan purposes carry higher risk
-- Class imbalance requires recall-focused evaluation
-
----
-
-## 🔜 Next Step
-- Model evaluation
+### 05 – Evaluation
 - Confusion matrix
-- Recall (Sensitivity) calculation
-- ROC curve and AUC score
-- Threshold analysis
+- Recall calculation
+- ROC curve and AUC analysis
 
 ---
 
-## ⚠️ Notes
-- Accuracy alone is misleading for imbalanced datasets
-- Feature engineering and modeling are kept separate for clarity
-- Evaluation is performed in a dedicated notebook
+## 📊 Key Results
+- Recall (default class): ~62%
+- ROC–AUC: ~0.69
+- Model prioritizes default detection over overall accuracy
+
+---
